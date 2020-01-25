@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class InventoryController : MonoBehaviour
 {
     public Item[] initialItems;
     public InventoryPanel inventoryVisual;
     private List<Item> inventoryItems = new List<Item>();
+    Sprite dragSprite;
+    bool isDraggable;
+    Item selectItem;
+    public GameObject inventory;
 
     private void Start()
     {
@@ -24,10 +29,11 @@ public class InventoryController : MonoBehaviour
 
     public void ChangeItemsList1()
     {
-        for (int i = 1; i < inventoryVisual.transform.childCount; i++)
+        for (int i = 0; i < inventory.transform.childCount; i++)
         {
-            Destroy(inventoryVisual.GetComponentInChildren<Image>());
+            Destroy(inventory.transform.GetChild(i).gameObject);
         }
+
         foreach (Item item in initialItems)
         {
 
@@ -37,12 +43,57 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-        public void MoveItem()
+    public void ChangeItemsList2()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        for (int i = 0; i < inventory.transform.childCount; i++)
+        {
+            Destroy(inventory.transform.GetChild(i).gameObject);
+        }
+
+        foreach (Item item in initialItems)
         {
 
+            if (item.ItemType == Item.TypeofItem.list_2)
+            {
+                AddItem(item);
+            }
         }
     }
 
-}
+    public void ChangeItemsList3()
+    {
+        for (int i = 0; i < inventory.transform.childCount; i++)
+        {
+            Destroy(inventory.transform.GetChild(i).gameObject);
+        }
+
+        foreach (Item item in initialItems)
+        {
+
+            if (item.ItemType == Item.TypeofItem.list_3)
+            {
+                AddItem(item);
+            }
+        }
+    }
+
+    public void ChangeItemsList4()
+    {
+        for (int i = 0; i < inventory.transform.childCount; i++)
+        {
+            Destroy(inventory.transform.GetChild(i).gameObject);
+        }
+
+        foreach (Item item in initialItems)
+        {
+
+            if (item.ItemType == Item.TypeofItem.list_4)
+            {
+                AddItem(item);
+            }
+        }
+    }
+
+    }
+
+
