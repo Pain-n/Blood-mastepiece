@@ -16,14 +16,7 @@ public class ItemVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(this.itemAsset != null)
-        {
-            if(SelectedItem.itemAsset != null)
-            {
-                Item clone = SelectedItem.itemAsset;
-                //SelectedItem.
-            }
-        }
+        GetComponentInParent<InventoryPanel>().Drag_drop(itemAsset);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

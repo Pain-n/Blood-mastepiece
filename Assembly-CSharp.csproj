@@ -63,15 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\butScript.cs" />
-    <Compile Include="Assets\ButtonScript.cs" />
     <Compile Include="Assets\Inventory\Scripts\InventoryController.cs" />
     <Compile Include="Assets\Inventory\Scripts\InventoryPanel.cs" />
     <Compile Include="Assets\Inventory\Scripts\Item.cs" />
     <Compile Include="Assets\Inventory\Scripts\ItemVisual.cs" />
     <Compile Include="Assets\scripts\scene_changer.cs" />
-    <Compile Include="Assets\scripts\scene_walker.cs" />
-    <Compile Include="Assets\scripts\walker_for_buttons.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/pain4/OneDrive/Рабочий стол/unity/unity projects/blood_masterpiece/Blood mastepiece/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
