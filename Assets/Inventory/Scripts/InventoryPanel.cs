@@ -12,10 +12,6 @@ public class InventoryPanel : MonoBehaviour
     public GameObject panel;
     public Text itemNameField, itemDescriptionField;
     public Image itemImage;
-    private bool isDraggable = false;
-    private Item selectedItem;
-    private Sprite selectedItemSprite;
-    public GameObject WorkSpaceField;
 
     public void Start()
     {
@@ -47,24 +43,7 @@ public class InventoryPanel : MonoBehaviour
         itemImage.hideFlags = HideFlags.HideInHierarchy;
     }
 
-    public void Drag_drop(Item item)
-    {
-        if (!isDraggable)
-        {
-            isDraggable = true;
-            selectedItem = item;
-            selectedItemSprite = item.Sprite;
-        }
-        else
-        {
-            OnCollisionStay2D() ;
-        }
-
-        void OnCollisionStay2D(Collision2D collision)
-    {
-        
-    }
 }
 
 
-}
+
