@@ -20,5 +20,7 @@ public class ItemInspector : Editor
 
         currentItem.ItemType = (Item.TypeofItem)EditorGUILayout.EnumPopup("Item type", currentItem.ItemType);
 
+        currentItem.GameItem = (GameObject)EditorGUILayout.ObjectField(currentItem.GameItem, typeof(GameObject), GUILayout.Width(200), GUILayout.Height(200));
+
     }
 }

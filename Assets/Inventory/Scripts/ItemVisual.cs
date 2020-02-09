@@ -7,64 +7,69 @@ public class ItemVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     private Item itemAsset;
     private ItemVisual SelectedItem;
-    private Transform canvas;
     private Image image;
     private Item inventoryItem;
     private Transform oldParent;
-    public GameObject WorkSpace;
+    public Vector2 startPosition;
 
     private void Start()
     {
-        canvas = GameObject.FindWithTag("Canvas").transform;
         image = GetComponent<Image>();
     }
     public void Init(Item item)
     {
         itemAsset = item;
         GetComponent<Image>().sprite = item.Sprite;
-        canvas = GameObject.FindWithTag("Canvas").transform;
-    }
 
+    }
+    #region IBeginDragHandler implementation
     public void OnBeginDrag(PointerEventData eventData)
     {
         image.raycastTarget = false;
         SelectedItem = transform.parent.GetComponent<ItemVisual>();
         inventoryItem = SelectedItem.itemAsset;
         oldParent = transform.parent;
-        transform.SetParent(canvas);
+        startPosition = transform.position;
+        transform.SetParent(GameObject.FindWithTag("Canvas").transform);
+        GetComponent<CanvasGroup>().blocksRaycasts = false;
 
     }
+    #endregion
+
+    #region IDragHandler implementation
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.localPosition = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        transform.position = Input.mousePosition;
     }
+    #endregion
+
+    #region IEndDragHandler implementation
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        transform.parent = GameObject.FindWithTag("Canvas").transform;
         image.raycastTarget = true;
+       
+        if (transform.parent != GameObject.FindWithTag("Inventory").transform)
+        //{
+        //    //transform.position = startPosition;
+        //    transform.SetParent(GameObject.FindWithTag("Inventory").transform);
+        //} 
 
-        if (eventData.pointerCurrentRaycast.gameObject != null)
         {
-            if (eventData.pointerCurrentRaycast.gameObject.transform == oldParent) {
-                transform.SetParent(oldParent);
-            }
-            else if (eventData.pointerCurrentRaycast.gameObject.transform.GetComponent<ItemVisual>() )
+            if (eventData.pointerCurrentRaycast.gameObject.transform == GameObject.FindWithTag("WorkSpace").transform)
             {
-                transform.SetParent(oldParent);
+                transform.SetParent(GameObject.FindWithTag("WorkSpace").transform);
             }
             else
             {
-                if(eventData.pointerCurrentRaycast.gameObject.transform == WorkSpace.transform)
-                {
-                    transform.SetParent(WorkSpace.transform);
-                }
-                else
-                {
-                    transform.SetParent(oldParent);
-                }
+                transform.SetParent(GameObject.FindWithTag("Inventory").transform);
             }
-        }
+        }      
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        #endregion
+
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
