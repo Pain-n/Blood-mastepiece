@@ -10,7 +10,7 @@ public class ItemVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private Image image;
     private Item inventoryItem;
     private Transform oldParent;
-    public Vector2 startPosition;
+    private Vector2 startPosition;
 
     private void Start()
     {
@@ -20,19 +20,20 @@ public class ItemVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         itemAsset = item;
         GetComponent<Image>().sprite = item.Sprite;
+        GetComponentInChildren<Text>().text = item.counter.ToString();
 
     }
     #region IBeginDragHandler implementation
     public void OnBeginDrag(PointerEventData eventData)
     {
-        image.raycastTarget = false;
-        SelectedItem = transform.parent.GetComponent<ItemVisual>();
-        inventoryItem = SelectedItem.itemAsset;
-        oldParent = transform.parent;
-        startPosition = transform.position;
-        transform.SetParent(GameObject.FindWithTag("Canvas").transform);
-        GetComponent<CanvasGroup>().blocksRaycasts = false;
-
+        
+        SelectedItem = Instantiate(GetComponent<ItemVisual>(), transform);
+        SelectedItem.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
+        SelectedItem.transform.parent = GameObject.FindWithTag("Canvas").transform;
+        itemAsset.counter -= 1;
+        GetComponentInChildren<Text>().text = itemAsset.counter.ToString();
+        SelectedItem.GetComponentInChildren<Text>().text = null;
+        SelectedItem.GetComponent<Image>().raycastTarget = false;
     }
     #endregion
 
@@ -40,7 +41,7 @@ public class ItemVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        SelectedItem.transform.position = Input.mousePosition;
     }
     #endregion
 
@@ -48,35 +49,25 @@ public class ItemVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.parent = GameObject.FindWithTag("Canvas").transform;
-        image.raycastTarget = true;
-       
-        if (transform.parent != GameObject.FindWithTag("Inventory").transform)
-        //{
-        //    //transform.position = startPosition;
-        //    transform.SetParent(GameObject.FindWithTag("Inventory").transform);
-        //} 
-
+        if (eventData.pointerCurrentRaycast.gameObject.transform == GameObject.FindWithTag("WorkSpace").transform)
         {
-            if (eventData.pointerCurrentRaycast.gameObject.transform == GameObject.FindWithTag("WorkSpace").transform)
-            {
-                transform.SetParent(GameObject.FindWithTag("WorkSpace").transform);
-            }
-            else
-            {
-                transform.SetParent(GameObject.FindWithTag("Inventory").transform);
-            }
-        }      
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
-        #endregion
-
+            SelectedItem.transform.SetParent(GameObject.FindWithTag("WorkSpace").transform);
+            SelectedItem.GetComponent<Image>().raycastTarget = true;
+        }
+        else
+        {
+            itemAsset.counter += 1;
+            Destroy(SelectedItem);         
+        }
     }
+    #endregion
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         GetComponentInParent<InventoryPanel>().ShowInfo(itemAsset);
     }
 
-    public void OnPointerExit (PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)
     {
         GetComponentInParent<InventoryPanel>().HideInfo();
     }

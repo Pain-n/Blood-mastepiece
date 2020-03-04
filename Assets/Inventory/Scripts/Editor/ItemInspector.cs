@@ -20,7 +20,13 @@ public class ItemInspector : Editor
 
         currentItem.ItemType = (Item.TypeofItem)EditorGUILayout.EnumPopup("Item type", currentItem.ItemType);
 
-        currentItem.GameItem = (GameObject)EditorGUILayout.ObjectField(currentItem.GameItem, typeof(GameObject), GUILayout.Width(200), GUILayout.Height(200));
+        currentItem.GameItem = (GameObject)EditorGUILayout.ObjectField(currentItem.GameItem, typeof(GameObject), GUILayout.Width(100), GUILayout.Height(100));
+
+        int newItemCounter = EditorGUILayout.IntField("Item counter", currentItem.counter);
+        currentItem.counter = newItemCounter;
+
+        int newItemIndex = EditorGUILayout.IntField("Item index", currentItem.index);
+        currentItem.index = newItemIndex;
 
     }
 }

@@ -37,7 +37,8 @@ public class InventoryController : MonoBehaviour
         foreach (Item item in initialItems)
         {
 
-            if (item.ItemType == Item.TypeofItem.List_1) {
+            if (item.ItemType == Item.TypeofItem.List_1)
+            {
                 AddItem(item);
             }
         }
@@ -94,6 +95,4 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    }
-
-
+}

@@ -16,5 +16,7 @@ public class Item : ScriptableObject
     public string ItemDescription; //описание
     public TypeofItem ItemType;
     public GameObject GameItem;
+    public int counter;
+    public int index;
    
 }

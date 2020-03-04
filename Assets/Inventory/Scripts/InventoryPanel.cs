@@ -24,7 +24,7 @@ public class InventoryPanel : MonoBehaviour
 
     }
 
-    public  void ShowInfo(Item item)
+    public void ShowInfo(Item item)
     {
         panel.SetActive(true);
         itemNameField.enabled = true;
@@ -37,13 +37,10 @@ public class InventoryPanel : MonoBehaviour
 
     public void HideInfo()
     {
-        panel.SetActive(false); 
+        panel.SetActive(false);
         itemNameField.hideFlags = HideFlags.HideInHierarchy;
         itemDescriptionField.hideFlags = HideFlags.HideInHierarchy;
         itemImage.hideFlags = HideFlags.HideInHierarchy;
     }
 
 }
-
-
-
