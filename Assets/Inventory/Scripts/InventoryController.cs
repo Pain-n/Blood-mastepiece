@@ -12,6 +12,7 @@ public class InventoryController : MonoBehaviour
     bool isDraggable;
     Item selectItem;
     public GameObject inventory;
+   
 
     private void Start()
     {
@@ -94,5 +95,6 @@ public class InventoryController : MonoBehaviour
             }
         }
     }
+
 
 }

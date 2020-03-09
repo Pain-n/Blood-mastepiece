@@ -63,6 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ConnectLineScript.cs" />
+    <Compile Include="Assets\InGameItemDragDrop.cs" />
+    <Compile Include="Assets\Inventory\Scripts\ConnectionScript.cs" />
     <Compile Include="Assets\Inventory\Scripts\InventoryController.cs" />
     <Compile Include="Assets\Inventory\Scripts\InventoryPanel.cs" />
     <Compile Include="Assets\Inventory\Scripts\Item.cs" />
